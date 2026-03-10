@@ -1,0 +1,4 @@
+[console_scripts]
+decoder = bci_control.bci_decode_node:main
+robot = bci_control.robot_controller_node:main
+

@@ -1,0 +1,14 @@
+package.xml
+setup.cfg
+setup.py
+bci_control/__init__.py
+bci_control/bci_decode_node.py
+bci_control/robot_controller_node.py
+bci_control.egg-info/PKG-INFO
+bci_control.egg-info/SOURCES.txt
+bci_control.egg-info/dependency_links.txt
+bci_control.egg-info/entry_points.txt
+bci_control.egg-info/requires.txt
+bci_control.egg-info/top_level.txt
+bci_control.egg-info/zip-safe
+resource/bci_control

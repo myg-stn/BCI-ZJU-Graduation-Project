@@ -1,0 +1,25 @@
+[0.922s] Invoking command in '/home/ros2/ros2_bci_ws/build/bci_control': PYTHONPATH=/home/ros2/ros2_bci_ws/build/bci_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros2/ros2_bci_ws/install/bci_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ros2/ros2_bci_ws/build/bci_control/build --no-deps symlink_data
+[1.303s] running develop
+[1.491s] running egg_info
+[1.491s] creating bci_control.egg-info
+[1.491s] writing bci_control.egg-info/PKG-INFO
+[1.491s] writing dependency_links to bci_control.egg-info/dependency_links.txt
+[1.492s] writing entry points to bci_control.egg-info/entry_points.txt
+[1.492s] writing requirements to bci_control.egg-info/requires.txt
+[1.492s] writing top-level names to bci_control.egg-info/top_level.txt
+[1.493s] writing manifest file 'bci_control.egg-info/SOURCES.txt'
+[1.495s] reading manifest file 'bci_control.egg-info/SOURCES.txt'
+[1.496s] writing manifest file 'bci_control.egg-info/SOURCES.txt'
+[1.498s] running build_ext
+[1.499s] Creating /home/ros2/ros2_bci_ws/install/bci_control/lib/python3.10/site-packages/bci-control.egg-link (link to .)
+[1.500s] Installing decoder script to /home/ros2/ros2_bci_ws/install/bci_control/lib/bci_control
+[1.500s] Installing robot script to /home/ros2/ros2_bci_ws/install/bci_control/lib/bci_control
+[1.501s] 
+[1.501s] Installed /home/ros2/ros2_bci_ws/build/bci_control
+[1.501s] running symlink_data
+[1.501s] creating /home/ros2/ros2_bci_ws/install/bci_control/share/ament_index
+[1.502s] creating /home/ros2/ros2_bci_ws/install/bci_control/share/ament_index/resource_index
+[1.502s] creating /home/ros2/ros2_bci_ws/install/bci_control/share/ament_index/resource_index/packages
+[1.502s] symbolically linking /home/ros2/ros2_bci_ws/build/bci_control/resource/bci_control -> /home/ros2/ros2_bci_ws/install/bci_control/share/ament_index/resource_index/packages
+[1.502s] symbolically linking /home/ros2/ros2_bci_ws/build/bci_control/package.xml -> /home/ros2/ros2_bci_ws/install/bci_control/share/bci_control
+[1.540s] Invoked command in '/home/ros2/ros2_bci_ws/build/bci_control' returned '0': PYTHONPATH=/home/ros2/ros2_bci_ws/build/bci_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros2/ros2_bci_ws/install/bci_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ros2/ros2_bci_ws/build/bci_control/build --no-deps symlink_data
