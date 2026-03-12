@@ -45,9 +45,7 @@ def start_server():
             
             elif data == "WAITING":
                 print("WAITING")
-                cmd = "/bin/bash -c 'cd ~/robot_cook && source devel/setup.bash && rosrun cook_cartesian moveit_trajectory_recorder.py --play ~/moveit_trajectories/ catch_position_005.yaml --arm left_arm'"
-                os.system(cmd)
-                
+
             else:
                 print(f"Unknown command: {data}")
 
