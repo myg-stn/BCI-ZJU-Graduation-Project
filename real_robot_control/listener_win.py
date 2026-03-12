@@ -24,13 +24,18 @@ def send_trigger(trigger_msg):
         if client:
             client.close()
 
-    if __name__ == '__main__':
-        send_trigger("SHOULDER_UP")
-        time.sleep(1)
-        send_trigger("SHOULDER_DOWN")
-        time.sleep(1)
-        send_trigger("ELBOW_UP")
-        time.sleep(1)
-        send_trigger("ELBOW_DOWN")
-        time.sleep(1)
-        send_trigger("WAITING")
+if __name__ == '__main__':
+    
+    send_trigger("SHOULDER_UP")
+    time.sleep(1)
+    
+    send_trigger("SHOULDER_DOWN")
+    time.sleep(1)
+    
+    send_trigger("ELBOW_UP")
+    time.sleep(1)
+    
+    send_trigger("ELBOW_DOWN")
+    time.sleep(1)
+    
+    send_trigger("WAITING")
