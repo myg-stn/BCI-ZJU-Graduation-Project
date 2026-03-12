@@ -28,6 +28,26 @@ def start_server():
                 cmd = "/bin/bash -c 'cd ~/robot_cook && source devel/setup.bash && rosrun cook_cartesian moveit_trajectory_recorder.py --play ~/moveit_trajectories/ catch_position_001.yaml --arm left_arm'"
                 os.system(cmd)
             
+            elif data == "SHOULDER_DOWN":
+                print("SHOULDER_DOWN")
+                cmd = "/bin/bash -c 'cd ~/robot_cook && source devel/setup.bash && rosrun cook_cartesian moveit_trajectory_recorder.py --play ~/moveit_trajectories/ catch_position_002.yaml --arm left_arm'"
+                os.system(cmd)
+            
+            elif data == "ELBOW_UP":
+                print("ELBOW_UP")
+                cmd = "/bin/bash -c 'cd ~/robot_cook && source devel/setup.bash && rosrun cook_cartesian moveit_trajectory_recorder.py --play ~/moveit_trajectories/ catch_position_003.yaml --arm left_arm'"
+                os.system(cmd)
+            
+            elif data == "ELBOW_DOWN":
+                print("ELBOW_DOWN")
+                cmd = "/bin/bash -c 'cd ~/robot_cook && source devel/setup.bash && rosrun cook_cartesian moveit_trajectory_recorder.py --play ~/moveit_trajectories/ catch_position_004.yaml --arm left_arm'"
+                os.system(cmd)
+            
+            elif data == "WAITING":
+                print("WAITING")
+                cmd = "/bin/bash -c 'cd ~/robot_cook && source devel/setup.bash && rosrun cook_cartesian moveit_trajectory_recorder.py --play ~/moveit_trajectories/ catch_position_005.yaml --arm left_arm'"
+                os.system(cmd)
+                
             else:
                 print(f"Unknown command: {data}")
 
