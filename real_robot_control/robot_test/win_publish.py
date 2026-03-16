@@ -25,8 +25,7 @@ def send_trigger(trigger_msg):
 
 #测试执行大臂向上动作,等待8秒后执行复位动作
 if __name__ == '__main__':
-    send_trigger("SHOULDER_UP")
-    print("SHOULDER_UP sent")
+    send_trigger("ELBOW_DOWN")
+    print("ELBOW_DOWN sent")
     time.sleep(8)
 
-    send_trigger("RESET")
