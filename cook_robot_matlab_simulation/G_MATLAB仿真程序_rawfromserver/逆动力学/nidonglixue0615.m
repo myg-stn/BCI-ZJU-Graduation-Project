@@ -1,0 +1,186 @@
+%% compiled by Ezekiel according to robot modeling and control
+%% date:20210228
+
+%% 逆动力学
+clc
+close all
+deg = pi/180;
+%%
+%     L(1) = Revolute('d', 0, ...   % link length (Dennavit-Hartenberg notation)
+%     'a', 0, ...               % link offset (Dennavit-Hartenberg notation)
+%     'alpha', pi/2, ...        % link twist (Dennavit-Hartenberg notation)
+%     'I', [0, 0.35, 0, 0, 0, 0], ... % inertia tensor of link with respect to center of mass I = [L_xx, L_yy, L_zz, L_xy, L_yz, L_xz]
+%     'r', [0, 0, 0], ...       % distance of ith origin to center of mass [x,y,z] in link reference frame
+%     'm', 0, ...               % mass of link
+%     'Jm', 200e-6, ...         % actuator inertia 
+%     'G', -62.6111, ...        % gear ratio
+%     'B', 1.48e-3, ...         % actuator viscous friction coefficient (measured at the motor)
+%     'Tc', [0.395 -0.435], ... % actuator Coulomb friction coefficient for direction [-,+] (measured at the motor)
+%     'qlim', [-160 160]*deg ); % minimum and maximum joint angle
+L1= Revolute('d', 0.053, 'a', 0, 'alpha', pi/2, ...
+    'I', 1e-6 * [	6289.474	-0.155	-0.255
+	                -0.155	6171.077	355.317
+	                -0.255	355.317	2106.491], ...
+    'r', 1e-3*[0 -3.568 45.513], ...
+    'm', 1.94, ...
+    'Jm', 1e-6*70.637, ...
+    'G', 1, ...
+    'B', 0, ...
+    'Tc', [0 0], ...
+    'qlim', [-180 180]*deg );
+
+L2 = Revolute('d', 0, 'a', -0.259, 'alpha', pi, ...
+    'I', 1e-6 *[ 34287.661	 -0.970	 35368.732
+	             -0.970	 123086.879	 0.739
+	            35368.732	 0.739	 92067.783], ...
+    'r', 1e-3*[-104.553 -0.002 92.246], ...
+    'm', 3.610, ...
+    'Jm', 1e-6*70.637, ...
+    'G',1, ...
+    'B', 0, ...
+    'Tc', [0 0], ...
+    'qlim', [-180 180]*deg );
+ 
+L3 = Revolute('d', 0, 'a', -0.246, 'alpha', pi,  ...
+    'I', 1e-6 *[ 3069.789	-1.062	-5626.261
+	             -1.062	    81470.497	-0.128
+	            -5626.261	-0.128	80760.272], ...
+    'r', 1e-3*[	-139.249  -0.002 -16.083], ...
+    'm',  2.448, ...
+    'Jm', 1e-6*50.996, ...
+    'G', 1, ...
+    'B', 0, ...
+    'Tc', [0, 0], ...
+    'qlim', [-180 180]*deg );
+
+L4 = Revolute('d', 0.098, 'a', 0, 'alpha', pi/2,  ...
+    'I', 1e-6 *[  12042.795	-0.069	 604.300
+	              -0.069	 12179.305	 0.329
+	              604.300	 0.329	 1097.203], ...
+    'r', 1e-3*[	-5.049  -0.004  94.249], ...
+    'm',1.241, ...
+    'Jm',1e-6*50.996, ...
+    'G', 1, ...
+    'B', 0, ...
+    'Tc', [0, 0], ...
+    'qlim',[-180 180]*deg  );
+L5 = Revolute('d', 0.291, 'a', 0, 'alpha', 0, ...
+    'I',1e-6 * [	33831.801	 -0.013	    0.435
+	                -0.013	     33483.660	 -90.455
+	                0.435	    -90.455	   1031.748], ...
+    'r', 1e-3*[0 0.589 162.249], ...
+    'm', 1.108, ...
+    'Jm', 1e-6*50.996, ...
+    'G', 1, ...
+    'B', 0, ...
+    'Tc', [0, 0], ...
+    'qlim',[-180 180]*deg );
+
+% 加负载3kg
+% L5 = Revolute('d', 0.247, 'a', 0, 'alpha', 0, ...
+%     'I',1e-6 * [	 13852.732	 -10.669 0.147;
+% 	 -10.669	 13886.777	 -0.042;
+% 	 0.147	 -0.042 	872.159;], ...
+%     'r', 1e-3*[0 0 246.697], ...
+%     'm', 3.701, ...
+%     'Jm', 1e-6*50.996, ...
+%     'G', 1, ...
+%     'B', 0, ...
+%     'Tc', [0, 0], ...
+%     'qlim', [-180 180]*deg );
+% 
+% 负载3kg
+% L5 = Revolute('d', 0.247, 'a', 0, 'alpha', 0, ...
+%     'I',1e-6 * [ 14264.303	 8.533	 -0.033;
+% 	8.533	 14227.928	 -0.150;
+% 	-0.033	 -0.150	1544.802;], ...
+%     'r', 1e-3*[0 0 193], ...
+%     'm', 4.5, ...
+%     'Jm', 1e-6*50.996, ...
+%     'G',1, ...
+%     'B', 0, ...
+%     'Tc', [0, 0], ...
+%     'qlim', [-180 180]*deg );
+
+baseL = transl(0,0,0)*troty(-45); %基座高度
+robot=SerialLink([L1,L2,L3,L4,L5],'name','Ez','comment','LL','base',baseL);  %SerialLink类函数
+
+view(3)
+hold on
+grid on
+% axis([-1.200, 1.200, -1.200, 1.200, 0.500, 2.500])
+robot.display();    %Link类函数，显示建立机器人DH参数
+%通过手动输入各个连杆转角，模型会自动运动到相应位置
+
+
+%% 机器人关节空间轨迹规划
+
+% T1 = transl(-0.775,0.1,1.123)*rpy2tr(0,-180,0);
+% T2 = transl(0.475,-0.1,0.823)*rpy2tr(0,-180,0);
+% disp(T1)
+% disp(T2)
+% theta1 = robot.ikine(T1,'mask',[1 1 1 1 1 0]);
+% theta2 = robot.ikine(T2,'mask',[1 1 1 1 1 0]);
+
+
+% theta1=[0  0  0  0  0];    %机器人伸直且垂直位姿
+% theta2=[pi/4,pi/4,pi/4,pi/4,pi/4];
+% theta1=[-pi/4 -pi/3 2*pi/5 -pi/12 pi/5];
+% theta2=[0  3*pi/4  -pi/4 -pi/4  pi/4];    %机器人伸直且垂直位姿
+% theta1=[0 -pi/4 pi/4 pi/4 0];
+% theta2=[0  3*pi/4  -pi/4 -pi/4  0];    %机器人伸直且垂直位姿
+% theta1=[0 0 0 0 0];
+% theta1=[0 0 0 0 -pi];
+% theta2=[0 0 0 0 pi];
+theta1=[pi/2 pi -pi/3 -2*pi/3 0];
+theta2=[0  -pi/2  pi/2 -pi/4  pi/4];    %机器人伸直且垂直位姿
+
+
+robot.plot(theta1);  %SerialLink类函数,显示机器人图像
+% teach(robot)
+robot.plot(theta2);
+t=[0:0.05:12.5];
+[q,qd,qdd]=jtraj(theta1,theta2,t);
+g=jtraj(theta1,theta2,t);
+figure
+% Q3 = robot.rne(q,qd,qdd);%获得每个时间点所需要的关节力矩
+% plot(t,Q3);grid on;title('力矩')
+
+
+
+i=1:5;
+
+% axis([-1.200, 1.200, -1.200, 1.200, 0.500, 2.500])
+subplot(2,3,1);
+robot.plot(g)%绘制动画
+
+subplot(2,3,2);
+plot(q(:,i));grid on;title('位置');%绘制每个关节位置
+legend('q1','q2','q3','q4','q5') %依次标注角度
+
+subplot(2,3,3);
+plot(qd(:,i));grid on;title('速度');%绘制每个关节速度
+legend('q1','q2','q3','q4','q5') %依次标注角度
+
+subplot(2,3,4);
+plot(qdd(:,i));grid on;title('加速度');%绘制每个关节加速度
+legend('q1','q2','q3','q4','q5') %依次标注角度
+
+
+Q = robot.rne(q,qd,qdd,[0 0 9.81],[0 0 -30 0 0 0]);%获得每个时间点所需要的关节力矩grav 是重力加速度，默认值是[0,0,9.81]
+subplot(2,3,5)
+plot(t,Q);
+legend('q1','q2','q3','q4','q5') %依次标注角度
+title('各关节力矩变化'); grid on;
+
+T0=robot.fkine(theta1); % 正运动学解算
+Tf=robot.fkine(theta2);
+Tc=ctraj(T0,Tf,300); % 笛卡尔空间规划轨迹，得到机器人末端运动的变换矩阵
+Tjtraj=transl(Tc);
+subplot(2,3,6); plot2(Tjtraj, 'b');
+title('p1到p2直线轨迹'); grid on;
+
+
+% 
+% Q = robot.rne(q,qd,qdd,[0 0 9.81],[0 0 -30 0 0 0]);%获得每个时间点所需要的关节力矩
+% disp(Q)
